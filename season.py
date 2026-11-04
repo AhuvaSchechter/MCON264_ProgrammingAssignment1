@@ -15,6 +15,9 @@ Run the checker after every TODO:
 """
 
 
+from xml.dom import Node
+
+
 class Game:
     """One game. Written for you, except result().
 
@@ -55,7 +58,7 @@ class Game:
         return f"{self.date} {where} {self.opponent}  {self.result()} {self.our_score}-{self.their_score}"
 
 
-class _Node:
+class Node:
     """One link in the chain: a game, and the node after it. Written for you."""
 
     def __init__(self, val, nxt=None):
@@ -102,7 +105,14 @@ class GameLog:
         Either way, _size goes up by one.
         """
         # TODO 5a: delete the raise line below and write your code here.
-        raise NotImplementedError("TODO 5a: write GameLog.add_game")
+        new_node=Node(game)
+        if self._head is None:
+            self._head=new_node
+            self._tail=new_node
+        else:
+            self._tail.nxt=new_node
+            self._tail=new_node
+        self._size += 1
 
     def games(self):
         """TODO 5b: every game, oldest first, as a Python list. O(n).
@@ -115,8 +125,12 @@ class GameLog:
                 current = current.nxt       <- forget this line and it never ends
         """
         # TODO 5b: delete the raise line below and write your code here.
-        raise NotImplementedError("TODO 5b: write GameLog.games")
-
+        games_list=[]
+        current=self._head
+        while current is not None:
+            games_list.append(current.val)
+            current=current.nxt
+        return games_list
     # ================================================================ TODO 6
     def last_game(self):
         """TODO 6: the most recent game, in O(1): the tail points right at it.
