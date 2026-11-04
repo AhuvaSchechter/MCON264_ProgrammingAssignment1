@@ -75,9 +75,9 @@ class Player:
     # That one method unlocks all of TODO 3: max() finds your best scorer, and
     # sorted() lines everyone up. (Module 3, Part 5.)
     def __lt__(self, other):
-        #compairs the 2 players and returns winner
-        winner = self.per_game() < other.per_game()
-        return winner
+        #compairs the 2 players and returns lesser
+        less = self.per_game() < other.per_game()
+        return less
 
 # ==================================================================== TODO 2
 #
@@ -140,9 +140,8 @@ class Roster:
         Asking for more players than you have? A slice just gives you all.
         """
         # TODO 3a: delete the raise line below and write your code here.
-        raise NotImplementedError("TODO 3a: write Roster.leaderboard")
-
+        return sorted(self.players(), reverse=True)[:top]
     def mvp(self):
         """TODO 3b: your team's best scorer. One line: max() uses your __lt__ too."""
         # TODO 3b: delete the raise line below and write your code here.
-        raise NotImplementedError("TODO 3b: write Roster.mvp")
+        return max(self.players())
