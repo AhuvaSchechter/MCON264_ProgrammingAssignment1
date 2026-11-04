@@ -54,6 +54,8 @@ class Player:
         whole leaderboard.
         """
         # TODO 1b: delete the raise line below and write your code here.
+
+        #the if statement catches if it iz zero before the program crashes trying to divide
         if self.games == 0:
             return 0.0
         return self.points / self.games
@@ -73,6 +75,7 @@ class Player:
     # That one method unlocks all of TODO 3: max() finds your best scorer, and
     # sorted() lines everyone up. (Module 3, Part 5.)
     def __lt__(self, other):
+        #compairs the 2 players and returns winner
         winner = self.per_game() < other.per_game()
         return winner
 
