@@ -167,7 +167,18 @@ class Season:
         A season with no games is (0, 0, 0).
         """
         # TODO 7a: delete the raise line below and write your code here.
-        raise NotImplementedError("TODO 7a: write Season.record")
+        win=0
+        loss=0
+        tie=0
+        for game in self.log.games():
+            if game.result()=="W":
+                win+=1
+            elif game.result()=="L":
+                loss+=1
+            else:
+                tie+=1
+        return (win, loss, tie)
+        
 
     def longest_win_streak(self):
         """TODO 7b: the most wins in a row, in one pass. O(n).
@@ -180,8 +191,16 @@ class Season:
             L L L             ->  0
         """
         # TODO 7b: delete the raise line below and write your code here.
-        raise NotImplementedError("TODO 7b: write Season.longest_win_streak")
-
+        current_streak=0
+        best_streak=0
+        for game in self.log.games():
+            if game.result()=="W":
+                current_streak+=1
+                if current_streak>best_streak:
+                    best_streak=current_streak
+            else:
+                current_streak=0
+        return best_streak
     # ================================================================ TODO 8
     def form(self, n=5):
         """TODO 8a: the last n results, oldest first, as text: "W W L W W".
