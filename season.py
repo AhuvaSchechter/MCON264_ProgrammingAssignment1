@@ -73,6 +73,10 @@ class Node:
 # popping from an empty list.
 
 
+class NoGamesYetError(IndexError):
+    """Raised when trying to access the last game of a season with no games."""
+
+
 class GameLog:
     """The whole season, oldest game first: a singly linked list.
 
@@ -138,7 +142,10 @@ class GameLog:
         No games yet? Raise NoGamesYetError("no games played yet").
         """
         # TODO 6: delete the raise line below and write your code here.
-        raise NotImplementedError("TODO 6: write GameLog.last_game")
+        if self._tail is None:
+            raise NoGamesYetError("no games played yet")
+        return self._tail.val
+
 
 
 class Season:
