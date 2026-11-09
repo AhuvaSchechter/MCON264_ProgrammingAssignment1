@@ -210,8 +210,12 @@ class Season:
         Fewer than n games? You get them all. No games at all? ""
         """
         # TODO 8a: delete the raise line below and write your code here.
-        raise NotImplementedError("TODO 8a: write Season.form")
-
+        results=[]
+        for game in self.log.games():
+            results.append(game.result())
+        last_n_results=results[-n:]
+        return " ".join(last_n_results)
+    
     def biggest_win(self):
         """TODO 8b: the season's blowout: the WIN with the biggest margin.
 
@@ -219,4 +223,13 @@ class Season:
         No wins at all? Return None. (Every season can't be a good one.)
         """
         # TODO 8b: delete the raise line below and write your code here.
-        raise NotImplementedError("TODO 8b: write Season.biggest_win")
+        biggest_win=None
+        biggest_margin=0    
+
+        for game in self.log.games():
+            if game.result() == "W":
+                if game.margin() > biggest_margin:
+                    biggest_margin = game.margin()
+                    biggest_win = game
+
+        return biggest_win
