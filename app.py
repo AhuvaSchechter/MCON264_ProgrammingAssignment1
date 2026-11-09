@@ -23,10 +23,10 @@ from season import GameLog, NoGamesYetError, Season
 # Make it yours. Put your team's real numbers in data/my_players.csv and
 # data/my_games.csv (README: "Find your team's numbers"), then change these.
 
-TEAM_NAME = "Midtown Meteors"
-STAT_NAME = "points"                       # or "goals", "runs", "touchdowns"
-PLAYERS_FILE = "data/sample_players.csv"
-GAMES_FILE = "data/sample_games.csv"
+TEAM_NAME = "Baltimore Ravens"                       # your team name, like "Midtown Meteors"
+STAT_NAME = "touchdowns"                       # or "goals", "runs", "touchdowns"
+PLAYERS_FILE = "data/my_players.csv"
+GAMES_FILE = "data/my_games.csv"
 
 
 # ============================================================================
@@ -119,7 +119,12 @@ def player_card_screen(season, name):
     same way.
     """
     # TODO 9a: delete the raise line below and write your code here.
-    raise NotImplementedError("TODO 9a: write player_card_screen")
+    try:
+        player = season.roster.find(name.strip())
+        return player_card(player)
+    except PlayerNotFoundError:
+        return f"No {name.strip()} on the {season.team_name}. Check the spelling?"
+    
 
 
 def add_game_screen(season, line):
@@ -136,8 +141,14 @@ def add_game_screen(season, line):
     "Added: " plus the game.
     """
     # TODO 9b: delete the raise line below and write your code here.
-    raise NotImplementedError("TODO 9b: write add_game_screen")
-
+    try:
+        game = parse_game(line)
+        season.log.add_game(game)
+        return f"Added: {game}" 
+    except ValueError as error:
+        return f"Couldn't add that game: {error}"   
+    
+    
 
 MENU = """
   1  Season at a glance       4  Biggest win
